@@ -15,14 +15,6 @@ const AddMovieForm = (props) => {
 		metascore: 0,
 		description: ""
 	});
-	
-	useEffect(() => {
-    axios.get(`http://localhost:5000/api/movies/${id}`)
-      .then(res => {
-        setMovie(res.data)
-      })
-      .catch(err => console.log(err))
-  }, [id])
 
 	const handleChange = (e) => {
         setMovie({
@@ -33,10 +25,10 @@ const AddMovieForm = (props) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		axios.put(`http://localhost:5000/api/movies/${id}`, movie)
-		.then(res => {
+		axios.post(`http://localhost:5000/api/movies`, movie)
+      .then(res => {
 			props.setMovies(res.data)
-			push(`/movies/${id}`)
+      push(`/movies`)
 		})
 		.catch(err => console.log(err))
 	}
@@ -75,7 +67,7 @@ const AddMovieForm = (props) => {
 				</div>
 				<div className="modal-footer">			    
 					<input type="submit" className="btn btn-info" value="Save"/>
-					<Link to={`/movies/1`}><input type="button" className="btn btn-default" value="Cancel"/></Link>
+					<Link to={`/movies`}><input type="button" className="btn btn-default" value="Cancel"/></Link>
 				</div>
 			</form>
 		</div>
